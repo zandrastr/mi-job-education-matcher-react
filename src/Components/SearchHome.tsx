@@ -2,11 +2,15 @@ import { useState } from "react";
 import "../style/TestForm.css";
 import { DigiButton, DigiFormInput, DigiTag } from "@digi/arbetsformedlingen-react";
 import { ButtonSize, ButtonVariation, FormInputMode, FormInputType, FormInputValidation, FormInputVariation, TagSize } from "@digi/arbetsformedlingen";
+import { RelatedOccupations } from "./RelatedOccupations";
+import { IOccupation } from "../models/RelatedOccupationsInterface";
+import { getRelatedOccupationsFromApi } from "../services/ApiResponseService";
 
 export const SearchHome = () => {
   const [titelInput, setTitelInput] = useState("");
   const [searchWordInput, setSearchWordInput] = useState("");
   const [textArray, setTextArray] = useState<string[]>([]);
+  const [relatedOccupations, setRelatedOccupations] = useState<IOccupation[]>([]);
 
   const handleChange = (name: string, value: string) => {
     if (name === "titelInput") {
@@ -23,12 +27,17 @@ export const SearchHome = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
    
     if (titelInput.trim() !== "") {
       console.log("Titel Input Value:", titelInput);
     }
     console.log("Submitted Text Array:", textArray);
+    const data = await getRelatedOccupationsFromApi(titelInput);
+    if (data) {
+      setRelatedOccupations(data);
+    }
+
   };
 
   const handleRemoveText = (indexToRemove: number) => {
@@ -77,6 +86,11 @@ export const SearchHome = () => {
       <>
         <DigiButton afSize={ButtonSize.MEDIUM} afVariation={ButtonVariation.PRIMARY} afFullWidth={false} onClick={handleSubmit}>Sök </DigiButton>
       </>
+
+
+      <>{relatedOccupations.length > 0 && <RelatedOccupations props={relatedOccupations} />}</>
     </div>
+
+    
   );
 };
