@@ -1,7 +1,4 @@
 
-import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
-import { ButtonTest } from "../style/Buttons";
-import { DigiButton } from "@digi/arbetsformedlingen-react";
 import { getRelatedOccupationsFromApi } from "../services/ApiResponseService";
 import { useState } from "react";
 import { IOccupation } from "../models/RelatedOccupationsInterface";
