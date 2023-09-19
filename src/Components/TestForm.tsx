@@ -1,5 +1,6 @@
     import React, { useState, useRef, useEffect } from "react";
     import "../style/TestForm.css"; // Import your custom CSS file for styling
+import { StyledComponentsDesign } from "./StyledComponentsDesign";
 
     export const TestForm = () => {
     const [input1, setInput1] = useState("");
@@ -76,6 +77,9 @@
 
     return (
         <div>
+            <p>//////////////////CustomDigiButton//////////////////////////</p>
+            <StyledComponentsDesign />
+            <p>/////////////////////////////////////////////////////</p>
         <form onSubmit={handleSubmit}>
             <div>
             <label htmlFor="input1">Jobbtitel:</label>
