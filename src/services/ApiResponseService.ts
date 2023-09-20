@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IOccupation, IRelatedOccupationsApiResult } from "../models/RelatedOccupationsInterface";
+import { ICompetenciesApiResult, ICompetency } from "../models/CompentenciesInterface";
 
 export const getRelatedOccupationsFromApi = async (userInput: string): Promise<IOccupation[] | undefined> => {
 
@@ -14,4 +15,22 @@ export const getRelatedOccupationsFromApi = async (userInput: string): Promise<I
     } catch (error) {
       console.log("Error getting data from API:", error);
     }
+};
+
+
+export const getCompetenciesFromApi = async (occupationId: string): Promise<ICompetency[] | undefined> => {
+
+  try {
+    const result: ICompetenciesApiResult = await axios.get(
+      `https://jobed-connect-api.jobtechdev.se/v1/enriched_occupations?occupation_id=${occupationId}&include_metadata=true`
+    );
+
+    const { competencies } = result.data.metadata.enriched_candidates_term_frequency;
+
+    console.log("API competencies result:", competencies);
+
+    return competencies;
+  } catch (error) {
+    console.log("Error getting competencies data from API:", error);
+  }
 };
