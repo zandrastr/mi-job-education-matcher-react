@@ -6,7 +6,7 @@ export const getRelatedOccupationsFromApi = async (userInput: string): Promise<I
 
     try {
       const result: IRelatedOccupationsApiResult = await axios.post(
-        `https://jobed-connect-api.jobtechdev.se/v1/occupations/match-by-text?input_text=${userInput}&input_headline=${userInput}&limit=10&offset=0&include_metadata=false`
+        `https://jobed-connect-api.jobtechdev.se/v1/occupations/match-by-text?input_text=${userInput}&input_headline=${userInput}&limit=50&offset=0&include_metadata=false`
       );
       console.log("API result:", result.data);
       console.log("All related occupations:", result.data.related_occupations);

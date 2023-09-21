@@ -1,96 +1,79 @@
 import { useState } from "react";
 import "../style/TestForm.css";
-import { DigiButton, DigiFormInput, DigiTag } from "@digi/arbetsformedlingen-react";
-import { ButtonSize, ButtonVariation, FormInputMode, FormInputType, FormInputValidation, FormInputVariation, TagSize } from "@digi/arbetsformedlingen";
-import { RelatedOccupations } from "./RelatedOccupations";
+import { DigiButton, DigiFormInput } from "@digi/arbetsformedlingen-react";
+import { ButtonSize, ButtonVariation, FormInputMode, FormInputType, FormInputValidation, FormInputVariation } from "@digi/arbetsformedlingen";
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { getRelatedOccupationsFromApi } from "../services/ApiResponseService";
 
+const generateSubstrings = (input: string): string[] => {
+  const substrings: string[] = [];
+  for (let i = 0; i < input.length; i++) {
+    for (let j = i + 1; j <= input.length; j++) {
+      substrings.push(input.slice(i, j));
+    }
+  }
+  return substrings;
+};
+
 export const SearchHome = () => {
-  const [titelInput, setTitelInput] = useState("");
-  const [searchWordInput, setSearchWordInput] = useState("");
-  const [textArray, setTextArray] = useState<string[]>([]);
+  const [titelInput, setTitelInput] = useState<string>("");
   const [relatedOccupations, setRelatedOccupations] = useState<IOccupation[]>([]);
 
   const handleChange = (name: string, value: string) => {
     if (name === "titelInput") {
       setTitelInput(value);
-    } else if (name === "searchWordInput") {
-      setSearchWordInput(value);
+      handleSubmit(value);
     }
   };
 
-  const handleAddText = () => {
-    if (searchWordInput.trim() !== "") {
-      setTextArray([...textArray, searchWordInput]);
-      setSearchWordInput("");
-    }
-  };
-
-  const handleSubmit = async () => {
-   
-    if (titelInput.trim() !== "") {
-      console.log("Titel Input Value:", titelInput);
-    }
-    console.log("Submitted Text Array:", textArray);
-    const data = await getRelatedOccupationsFromApi(titelInput);
+  const handleSubmit = async (inputValue: string) => {
+  
+    const substrings: string[] = generateSubstrings(inputValue);
+    const withEr = substrings.map((substring) => substring + "er");
+    const combinedArray = substrings.concat(withEr);
+    const modifiedInput = combinedArray.join(" ");
+    
+    console.log(modifiedInput);
+    const data = await getRelatedOccupationsFromApi(modifiedInput);
     if (data) {
       setRelatedOccupations(data);
     }
-
-  };
-
-  const handleRemoveText = (indexToRemove: number) => {
-    const updatedTextArray = textArray.filter((_, index) => index !== indexToRemove);
-    setTextArray(updatedTextArray);
   };
 
   return (
     <div>
       <>
         <DigiFormInput
-        afLabel="Jobbtitel"
-        afVariation={FormInputVariation.MEDIUM}
-        afType={FormInputType.TEXT}
-        afValidation={FormInputValidation.NEUTRAL}
-        afInputmode={FormInputMode.TEXT}
-        value={titelInput}
-        onAfOnChange={(e) => handleChange('titelInput', (e.target as unknown as HTMLInputElement).value)}
-        ></DigiFormInput>
+          afLabel="Jobbtitel"
+          afVariation={FormInputVariation.MEDIUM}
+          afType={FormInputType.TEXT}
+          afValidation={FormInputValidation.NEUTRAL}
+          afInputmode={FormInputMode.TEXT}
+          value={titelInput}
+          onAfOnChange={(e) =>
+            handleChange("titelInput", (e.target as unknown as HTMLInputElement).value)
+          }
+        />
 
-       </>
-
-            
-      <>
-        <DigiFormInput
-        afLabel="Sökord"
-        afVariation={FormInputVariation.MEDIUM}
-        afType={FormInputType.TEXT}
-        afValidation={FormInputValidation.NEUTRAL}
-        afInputmode={FormInputMode.TEXT}
-        value={searchWordInput}
-        onAfOnChange={(e) => handleChange('searchWordInput', (e.target as unknown as HTMLInputElement).value)}
-        ></DigiFormInput>
-        
-        <DigiButton afSize={ButtonSize.MEDIUM} afVariation={ButtonVariation.SECONDARY} afFullWidth={false} onClick={handleAddText}> Lägg till sökord</DigiButton>
+        <DigiButton
+          afType="submit"
+          afSize={ButtonSize.MEDIUM}
+          afVariation={ButtonVariation.PRIMARY}
+        >
+          Sök
+        </DigiButton>
       </>
-      <div style={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
-        {textArray.map((text, index) => (
-          <div key={index} style={{ marginRight: "10px" }}>
-            <DigiTag afText={text} afSize={TagSize.SMALL} afNoIcon={false} afAriaLabel="ta bort" onClick={() => handleRemoveText(index)}></DigiTag>
-          </div>
-        ))}
-        
-      </div>
-     
-      <>
-        <DigiButton afSize={ButtonSize.MEDIUM} afVariation={ButtonVariation.PRIMARY} afFullWidth={false} onClick={handleSubmit}>Sök </DigiButton>
-      </>
-
-
-      <>{relatedOccupations.length > 0 && <RelatedOccupations props={relatedOccupations} />}</>
+      
+        <>
+          <h2>Relevanta yrken:</h2>
+          <ul>
+            {relatedOccupations.map((occupation) => (
+              <li key={occupation.id}>{occupation.occupation_label}</li>
+            ))}
+          </ul>
+        </>
+      
     </div>
-
-    
   );
 };
+
