@@ -22,7 +22,7 @@ export const Competencies = ({ props }: competenciesProps) => {
           <DigiList afListType={ListType.BULLET}>
             {firstTenCompetencies.map((oneCompetency) => (
               <li key={oneCompetency.term}>
-                <span>{oneCompetency.term}</span>
+                <span>{oneCompetency.term.charAt(0).toUpperCase() + oneCompetency.term.slice(1)}</span>
               </li>
             ))}
           </DigiList>
