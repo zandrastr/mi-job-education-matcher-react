@@ -1,4 +1,7 @@
+import { DigiList, DigiTypography } from "@digi/arbetsformedlingen-react";
 import { ICompetency } from "../models/CompentenciesInterface";
+import { ListType, TypographyVariation } from "@digi/arbetsformedlingen";
+import "../style/Competencies.css";
 
 interface competenciesProps {
   props: ICompetency[];
@@ -10,12 +13,20 @@ export const Competencies = ({ props }: competenciesProps) => {
 
   return (
     <>
-      <div>
-        <h1>Efterfrågade kompetenser för yrket</h1>
-        {/* Testutskrift av resultat - Lista med 10 kompetenser */}
-        {firstTenCompetencies.map((oneCompetency) => (
-          <li key={oneCompetency.term}>{oneCompetency.term}</li>
-        ))}
+      <div className="competencies">
+        <DigiTypography afVariation={TypographyVariation.LARGE}>
+          <h1>Efterfrågade kompetenser</h1>
+        </DigiTypography>
+
+        <DigiTypography afVariation={TypographyVariation.SMALL}>
+          <DigiList afListType={ListType.BULLET}>
+            {firstTenCompetencies.map((oneCompetency) => (
+              <li key={oneCompetency.term}>
+                <span>{oneCompetency.term}</span>
+              </li>
+            ))}
+          </DigiList>
+        </DigiTypography>
       </div>
     </>
   );
