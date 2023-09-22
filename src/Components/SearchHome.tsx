@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "../style/TestForm.css";
-import { DigiButton, DigiFormInput, DigiLink } from "@digi/arbetsformedlingen-react";
-import { ButtonSize, ButtonVariation, FormInputMode, FormInputType, FormInputValidation, FormInputVariation, LinkVariation } from "@digi/arbetsformedlingen";
+
+import { DigiFormInputSearch } from "@digi/arbetsformedlingen-react";
+import { FormInputSearchVariation, FormInputType } from "@digi/arbetsformedlingen";
+
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { getRelatedOccupationsFromApi } from "../services/ApiResponseService";
 import { Link } from "react-router-dom";
@@ -44,25 +46,19 @@ export const SearchHome = () => {
   return (
     <div>
       <>
-        <DigiFormInput
-          afLabel="Jobbtitel"
-          afVariation={FormInputVariation.MEDIUM}
-          afType={FormInputType.TEXT}
-          afValidation={FormInputValidation.NEUTRAL}
-          afInputmode={FormInputMode.TEXT}
+        
+        <DigiFormInputSearch
+          afLabel="Hitta relaterade yrken"
+          afVariation={FormInputSearchVariation.LARGE}
+          afType={FormInputType.SEARCH}	
           value={titelInput}
+          afButtonText="Sök"
           onAfOnChange={(e) =>
             handleChange("titelInput", (e.target as unknown as HTMLInputElement).value)
           }
-        />
-
-        <DigiButton
-          afType="submit"
-          afSize={ButtonSize.MEDIUM}
-          afVariation={ButtonVariation.PRIMARY}
-        >
-          Sök
-        </DigiButton>
+          >
+          </DigiFormInputSearch>
+          
       </>
       
         <>
