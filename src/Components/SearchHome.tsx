@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../style/TestForm.css";
 
-import { DigiFormInputSearch } from "@digi/arbetsformedlingen-react";
-import { FormInputSearchVariation, FormInputType } from "@digi/arbetsformedlingen";
+import { DigiFormInputSearch, DigiLink } from "@digi/arbetsformedlingen-react";
+import { FormInputSearchVariation, FormInputType, LinkVariation } from "@digi/arbetsformedlingen";
 
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { getRelatedOccupationsFromApi } from "../services/ApiResponseService";
