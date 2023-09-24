@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IOccupation, IRelatedOccupationsApiResult } from "../models/RelatedOccupationsInterface";
 import { ICompetenciesApiResult, ICompetency } from "../models/CompentenciesInterface";
+import { IEducation, IEducationsApiResult } from "../models/EducationsInterface";
 
 export const getRelatedOccupationsFromApi = async (userInput: string): Promise<IOccupation[] | undefined> => {
 
@@ -32,5 +33,20 @@ export const getCompetenciesFromApi = async (occupationId: string): Promise<ICom
     return competencies;
   } catch (error) {
     console.log("Error getting competencies data from API:", error);
+  }
+};
+
+export const getEducationsFromApi = async (occupationId: string): Promise<IEducation[] | undefined> => {
+
+  try {
+    const result: IEducationsApiResult = await axios.post(
+      `https://jobed-connect-api.jobtechdev.se/v1/educations/match-by-occupation?occupation_id=${occupationId}&distance=false&limit=10&offset=0&include_metadata=false`
+    );
+    console.log("API result EDUCATIONS:", result.data);
+    console.log("All EDUCATIONS:", result.data.hits);
+    console.log("Show ONE EDUCATION:", result.data.hits[0]);
+    return result.data.hits;
+  } catch (error) {
+    console.log("Error getting data from API:", error);
   }
 };
