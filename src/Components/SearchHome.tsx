@@ -1,26 +1,22 @@
 import { useState } from "react";
 import "../style/TestForm.css";
 
-import { DigiFormInputSearch, DigiLink } from "@digi/arbetsformedlingen-react";
-import { FormInputSearchVariation, FormInputType, LinkVariation } from "@digi/arbetsformedlingen";
+import { DigiFormInputSearch } from "@digi/arbetsformedlingen-react";
+import { FormInputSearchVariation, FormInputType } from "@digi/arbetsformedlingen";
 
 import { IOccupation } from "../models/RelatedOccupationsInterface";
-import { getRelatedOccupationsFromApi } from "../services/ApiResponseService";
-import { Link } from "react-router-dom";
+import { ICompetency } from "../models/CompentenciesInterface";
+import { handleCompetencyClick, handleSearchSubmit } from "../functions/searchHandlers";
+import { OccupationMenu } from "./OccupationMenu";
 
-const generateSubstrings = (input: string): string[] => {
-  const substrings: string[] = [];
-  for (let i = 0; i < input.length; i++) {
-    for (let j = i + 1; j <= input.length; j++) {
-      substrings.push(input.slice(i, j));
-    }
-  }
-  return substrings;
-};
+
 
 export const SearchHome = () => {
   const [titelInput, setTitelInput] = useState<string>("");
   const [relatedOccupations, setRelatedOccupations] = useState<IOccupation[]>([]);
+  const [competencies, setCompetencies] = useState<ICompetency[]>([]);
+  const [selectedOccupationId, setSelectedOccupationId] = useState<string | null>(null);
+
 
   const handleChange = (name: string, value: string) => {
     if (name === "titelInput") {
@@ -29,55 +25,36 @@ export const SearchHome = () => {
     }
   };
 
-  const handleSubmit = async (inputValue: string) => {
-  
-    const substrings: string[] = generateSubstrings(inputValue);
-    const withEr = substrings.map((substring) => substring + "er");
-    const combinedArray = substrings.concat(withEr);
-    const modifiedInput = combinedArray.join(" ");
-    
-    console.log(modifiedInput);
-    const data = await getRelatedOccupationsFromApi(modifiedInput);
-    if (data) {
-      setRelatedOccupations(data);
-    }
-  };
+  const handleSubmit = (inputValue: string) => {
+    handleSearchSubmit(inputValue, setRelatedOccupations);
+ };
 
-  return (
-    <div>
-      <>
-        
-        <DigiFormInputSearch
+ 
+const handleClickToGetCompetencies = (occupationId: string) => {
+  handleCompetencyClick(occupationId, selectedOccupationId, setSelectedOccupationId, setCompetencies);
+};
+
+return (
+  <div>
+      <DigiFormInputSearch
           afLabel="Hitta relaterade yrken"
           afVariation={FormInputSearchVariation.LARGE}
           afType={FormInputType.SEARCH}	
           value={titelInput}
           afButtonText="Sök"
           onAfOnChange={(e) =>
-            handleChange("titelInput", (e.target as unknown as HTMLInputElement).value)
+              handleChange("titelInput", (e.target as unknown as HTMLInputElement).value)
           }
-          >
-          </DigiFormInputSearch>
-          
-      </>
-      
-        <>
-          <h2>Relevanta yrken:</h2>
-          <ul>
-          {relatedOccupations.map((occupation) => (
-            <li key={occupation.id}>
-              <DigiLink afHref="/" afVariation={LinkVariation.LARGE}>
-                <Link to={`/${occupation.occupation_label}`}>
-                  {occupation.occupation_label}
-                </Link>
-              </DigiLink>
-            </li>
-          ))}
-        </ul>
+      />
+        
+      <h2>Relevanta yrken:</h2>
+      <OccupationMenu 
+                occupations={relatedOccupations} 
+                competencies={competencies} 
+                selectedOccupationId={selectedOccupationId} 
+                onCompetencyClick={handleClickToGetCompetencies}
+            />
+  </div>
+);
 
-        </>
-      
-    </div>
-  );
 };
-
