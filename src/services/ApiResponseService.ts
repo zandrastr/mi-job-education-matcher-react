@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IOccupation, IRelatedOccupationsApiResult } from "../models/RelatedOccupationsInterface";
 import { ICompetenciesApiResult, ICompetency } from "../models/CompentenciesInterface";
+import { ApiResponse } from "../models/ssykResponse";
 
 export const getRelatedOccupationsFromApi = async (userInput: string): Promise<IOccupation[] | undefined> => {
 
@@ -34,3 +35,22 @@ export const getCompetenciesFromApi = async (occupationId: string): Promise<ICom
     console.log("Error getting competencies data from API:", error);
   }
 };
+
+
+export const getDataFromScb = async (): Promise<ApiResponse | undefined> => {
+  const url = "https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0208/AM0208Z/SSYKBeskrivning";
+ 
+
+  try {
+    const response = await axios.get<ApiResponse>(url);
+
+      console.log("Raw API response:", response); 
+      console.log("Data part of the response:", response.data); 
+      return response.data;
+  } catch (error) {
+      console.error("Error getting data from API:", error);
+      return undefined;
+  }
+};
+
+
