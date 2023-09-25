@@ -10,10 +10,11 @@ import { ApiResponse } from "../models/ssykResponse";
 export const getRelatedOccupationsFromApi = async (userInput: string): Promise<IOccupation[] | undefined> => {
 
     try {
-      const result: IRelatedOccupationsApiResult = await axios.post(
+      const result = await axios.post<IRelatedOccupationsApiResult>(
         `https://jobed-connect-api.jobtechdev.se/v1/occupations/match-by-text?input_text=${userInput}&input_headline=${userInput}&limit=50&offset=0&include_metadata=false`
       );
       return result.data.related_occupations;
+      
     } catch (error) {
       console.log("Error getting data from API:", error);
     }
