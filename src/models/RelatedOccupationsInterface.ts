@@ -1,4 +1,4 @@
-export interface IApiResponse {
+export interface IRelatedOccupationsApiResult {
     hits_total: number;
     hits_returned: number;
     identified_keywords_for_input: {
