@@ -1,0 +1,19 @@
+header {
+    width: 100vw;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+}
+
+.headerWrapper {
+    background-color: rgb(255, 255, 255);
+    width: 80vw;
+    margin: auto;
+}
+
+.headerWrapper img {
+    padding: 15px;
+    height: 100px;
+}
