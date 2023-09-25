@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { getDataFromScb } from '../services/ApiResponseService';
 import { ApiResponse } from '../models/ssykResponse';
 
-export const WorkDescription = () => {
+interface WorkDescriptionProps {
+    ssyk: string;
+}
+
+
+export const WorkDescription = ({ ssyk }: WorkDescriptionProps) => {
     const [data, setData] = useState<ApiResponse | undefined>(undefined);
-    const targetNumber = "3451"; 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,19 +21,18 @@ export const WorkDescription = () => {
 
     return (
         <div>
-            <h1>Yrkesbeskrivning</h1>
             {data ? (
                 <div>
                       {data.variables
                         .filter(variable => variable.code === "YrkesBeskrivning")
                         .map((variable, index) => {
-                            const valueIndex = variable.values.indexOf(targetNumber);
+                            const valueIndex = variable.values.indexOf(ssyk);
                             if (valueIndex !== -1) {
                                 return (
                                     <div key={index}>
-                                        
+                                        <h3>Yrkesbeskrivning</h3>
                                         <p>
-                                            {variable.values[valueIndex]} - {variable.valueTexts[valueIndex]}
+                                            {variable.valueTexts[valueIndex]}
                                         </p>
                                     </div>
                                 )
