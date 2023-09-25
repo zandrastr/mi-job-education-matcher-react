@@ -5,6 +5,8 @@ import { RelatedOccupations } from "./RelatedOccupations";
 import { SearchHome } from "./SearchHome";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { Competencies } from "./Competencies";
+import { EducationForm } from "./EducationForm";
+import { WorkDescription } from "./WorkDescription";
 
 const testInput: string = "developer"; //Input är hårdkodad här för att testa API-anropet.
 const occupationId: string = "fg7B_yov_smw"; //Hårdkodad för att testa API-anropet.
@@ -38,6 +40,9 @@ export const Home = () => {
 
       {relatedOccupations.length > 0 && <RelatedOccupations props={relatedOccupations} />}
       {competencies.length > 0 && <Competencies props={competencies} />}
+
+      <EducationForm />
+      <WorkDescription />
     </>
   );
 };
