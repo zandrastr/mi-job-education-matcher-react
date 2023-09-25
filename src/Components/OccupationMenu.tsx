@@ -7,7 +7,6 @@ import { Educations } from "./Educations";
 import { useState } from "react";
 import { EducationFunction } from "./EducationFunction";
 
-
 interface Props {
     occupations: IOccupation[];
     competencies: ICompetency[];
@@ -19,6 +18,12 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
     const { educations, activeEducationId, handleClickToGetEducations } = EducationFunction();
     const [activeSsyk, setActiveSsyk] = useState<string | null>(null);
     const [expandedAccordionId, setExpandedAccordionId] = useState<string | null>(null);
+
+    const handleAccordionClick = (occupationId: string, ssyk: string) => {
+        setActiveSsyk(ssyk);
+        onCompetencyClick(occupationId);
+        toggleAccordion(occupationId);
+    };
 
    
     const toggleAccordion = (occupationId: string) => {
@@ -35,54 +40,43 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
                
                 setTimeout(() => {
                     setExpandedAccordionId(occupationId);
-                }, 500);
+                }, 50);
     
             }, 50);
     
-        }, 50); 
+        }, 500);
     };
     
 
     return (
         <div>
             {occupations.map((occupation) => (
-               <DigiExpandableAccordion
-                   key={occupation.id}
-                   afHeading={occupation.occupation_label}
-                   af-expanded={expandedAccordionId === occupation.id}
-               >
+                <DigiExpandableAccordion
+                    key={occupation.id}
+                    afHeading={occupation.occupation_label}
+                    af-expanded={expandedAccordionId === occupation.id}
+                    onAfOnClick={() => handleAccordionClick(occupation.id, occupation.occupation_group.ssyk)}
+                >
                     <ul>
-                        
+                        {activeSsyk === occupation.occupation_group.ssyk && (
                             <li>
-                                <button onClick={() => {
-                                    setActiveSsyk(occupation.occupation_group.ssyk);
-                                    toggleAccordion(occupation.id);
-                                }}>
-                                    Yrkesbeskrivning
-                                </button>
+                                <WorkDescription ssyk={occupation.occupation_group.ssyk} />
                             </li>
-                            
-                                {activeSsyk === occupation.occupation_group.ssyk && <WorkDescription ssyk={occupation.occupation_group.ssyk} />}
-                                <li>
-                                    <button onClick={() => {
-                                        onCompetencyClick(occupation.id);
-                                        toggleAccordion(occupation.id);
-                                    }}>
-                                        {`Efterfrågade kompetenser för '${occupation.occupation_label}'`}
-                                    </button>
-                                    <ul>{selectedOccupationId === occupation.id && competencies.length > 0 && <Competencies props={competencies} />}</ul>
-                                </li>
-                                <li>
-                                    <button onClick={() => {
-                                        handleClickToGetEducations(occupation.concept_taxonomy_id);
-                                        toggleAccordion(occupation.id);
-                                    }}>
-                                        {`Utbildningar`}
-                                    </button>
-                                    {activeEducationId === occupation.concept_taxonomy_id && <Educations props={educations} />}
-                                </li>
+                        )}
+                    
+                           
+                                {selectedOccupationId === occupation.id && competencies.length > 0 && <div><Competencies props={competencies} /></div>}
                             
                         
+                        <li>
+                            <button onClick={() => {
+                                handleClickToGetEducations(occupation.concept_taxonomy_id);
+                                toggleAccordion(occupation.id);
+                            }}>
+                                {`Utbildningar`}
+                            </button>
+                            {activeEducationId === occupation.concept_taxonomy_id && <Educations props={educations} />}
+                        </li>
                     </ul>
                 </DigiExpandableAccordion>
             ))}
