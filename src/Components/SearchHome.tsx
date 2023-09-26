@@ -2,13 +2,12 @@ import { useState } from "react";
 import "../style/TestForm.css";
 import "../style/Search.css";
 
-import { DigiFormInputSearch, DigiList } from "@digi/arbetsformedlingen-react";
 import { FormInputSearchVariation, FormInputType, ListType } from "@digi/arbetsformedlingen";
 
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { handleCompetencyClick, handleSearchSubmit } from "../functions/searchHandlers";
-import { OccupationMenu } from "./OccupationMenu";
+import { CustomDigiFormInputSearch, CustomDigiList, CustomOccupationMenu } from "../style/StyledComponents";
 
 export const SearchHome = () => {
   const [titelInput, setTitelInput] = useState<string>("");
@@ -33,21 +32,24 @@ export const SearchHome = () => {
     handleSearchSubmit(inputValue, setRelatedOccupations);
     setHasSearched(true);
     setTimeout(() => {
-      if (relatedOccupations.length === 0) {
-        setShowError(true);
-      }
-    }, 2000);
-  };
+
+        if (relatedOccupations.length === 0) {
+            setShowError(true);
+        }
+    }, 3000);
+};
+
 
   const handleClickToGetCompetencies = (occupationId: string) => {
     handleCompetencyClick(occupationId, selectedOccupationId, setSelectedOccupationId, setCompetencies);
   };
 
   return (
+
     <div>
       <div className="searchWrapper">
         <div className="searchInput">
-          <DigiFormInputSearch
+          <CustomDigiFormInputSearch
             afLabel="Hitta relaterade yrken"
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
@@ -61,10 +63,10 @@ export const SearchHome = () => {
       {hasSearched && showError && relatedOccupations.length === 0 ? (
         <div className="error-message">
           <h3>Inga yrken hittades vid din sökning. Tips för att förbättra din sökning</h3>
-          <DigiList afListType={ListType.BULLET}>
+          <CustomDigiList afListType={ListType.BULLET}>
             <li>Kontrollera din stavning</li>
             <li>Byt ut eller ta bort ett sökord</li>
-          </DigiList>
+          </CustomDigiList>
         </div>
       ) : (
         relatedOccupations.length > 0 && (
@@ -81,6 +83,7 @@ export const SearchHome = () => {
           </>
         )
       )}
+
     </div>
   );
 };

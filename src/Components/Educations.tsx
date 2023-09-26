@@ -1,7 +1,7 @@
-import { DigiTypography } from "@digi/arbetsformedlingen-react";
 import { TypographyVariation } from "@digi/arbetsformedlingen";
 import "../style/Educations.css";
 import { IEducation } from "../models/EducationsInterface";
+import { CustomDigiTypography } from "../style/StyledComponents";
 //import { useState } from "react";
 
 interface educationsProps {
@@ -26,11 +26,11 @@ export const Educations = ({ props }: educationsProps) => {
   return (
     <>
       <div className="educations">
-        <DigiTypography afVariation={TypographyVariation.LARGE}>
+        <CustomDigiTypography afVariation={TypographyVariation.LARGE}>
           <h1>Utbildningar</h1>
-        </DigiTypography>
+        </CustomDigiTypography>
 
-        <DigiTypography afVariation={TypographyVariation.SMALL}>
+        <CustomDigiTypography afVariation={TypographyVariation.SMALL}>
           {educations.map((oneEducation) => (
             <div
               className="educationWrapper"
@@ -55,7 +55,7 @@ export const Educations = ({ props }: educationsProps) => {
               <p className="readMore">{oneEducation.education_description}</p>
             </div>
           ))}
-        </DigiTypography>
+        </CustomDigiTypography>
       </div>
     </>
   );
