@@ -1,12 +1,11 @@
 import { IOccupation } from "../models/RelatedOccupationsInterface";
-import { DigiButton, DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
+import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
 import { Competencies } from "./Competencies";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { WorkDescription } from './WorkDescription';
 import { Educations } from "./Educations";
 import { useState } from "react";
 import { EducationFunction } from "./EducationFunction";
-import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
 
 interface Props {
     occupations: IOccupation[];
@@ -20,64 +19,70 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
     const [activeSsyk, setActiveSsyk] = useState<string | null>(null);
     const [expandedAccordionId, setExpandedAccordionId] = useState<string | null>(null);
 
-    const handleAccordionClick = (occupationId: string, ssyk: string) => {
-        setActiveSsyk(ssyk);
-        onCompetencyClick(occupationId);
-        toggleAccordion(occupationId);
+    const handleAccordionClick = async (occupation: IOccupation) => {
+        setActiveSsyk(occupation.occupation_group.ssyk);
+        onCompetencyClick(occupation.id);
+        
+        // Fetch educations asynchronously
+        await handleClickToGetEducations(occupation.concept_taxonomy_id);
+    
+        // Triggar när datan har laddats
+        toggleAccordion(occupation.id);
     };
+    
+    
 
-   
-    const toggleAccordion = (occupationId: string) => {
-        
-        setExpandedAccordionId(null);
-        
-        setTimeout(() => {
-            setExpandedAccordionId(occupationId);
+     const toggleAccordion = (occupationId: string) => {
+        const isCurrentlyExpanded = expandedAccordionId === occupationId;
+    
+        if (isCurrentlyExpanded) {
+            // Stäng om öppet
+            setExpandedAccordionId(null);
+        } else {
+            
+            setExpandedAccordionId(null);
     
             
             setTimeout(() => {
-                setExpandedAccordionId(null);
-                
-               
+                setExpandedAccordionId(occupationId);
+    
                 setTimeout(() => {
-                    setExpandedAccordionId(occupationId);
+                    setExpandedAccordionId(null);
+    
+                    setTimeout(() => {
+                        setExpandedAccordionId(occupationId);
+                    }, 50);
+    
                 }, 50);
     
-            }, 50);
-    
-        }, 500);
+            }, 500);
+        }
     };
-    
 
     return (
         <div>
             {occupations.map((occupation) => (
-                <DigiExpandableAccordion
-                    key={occupation.id}
-                    afHeading={occupation.occupation_label}
-                    af-expanded={expandedAccordionId === occupation.id}
-                    onAfOnClick={() => handleAccordionClick(occupation.id, occupation.occupation_group.ssyk)}
-                >
+               <DigiExpandableAccordion
+               key={occupation.id}
+               afHeading={occupation.occupation_label}
+               af-expanded={expandedAccordionId === occupation.id}
+               onAfOnClick={() => handleAccordionClick(occupation)}
+           >
+           
                     <ul>
                         {activeSsyk === occupation.occupation_group.ssyk && (
                             <li>
                                 <WorkDescription ssyk={occupation.occupation_group.ssyk} />
                             </li>
                         )}
+
+                        {selectedOccupationId === occupation.id && competencies.length > 0 && (
+                            <div><Competencies props={competencies} /></div>
+                        )}
                     
-                           
-                                {selectedOccupationId === occupation.id && competencies.length > 0 && <div><Competencies props={competencies} /></div>}
-                            
-                        
-                        <li>
-                            <DigiButton  afSize={ButtonSize.MEDIUM} afVariation={ButtonVariation.SECONDARY} onClick={() => {
-                                handleClickToGetEducations(occupation.concept_taxonomy_id);
-                                toggleAccordion(occupation.id);
-                            }}>
-                                {`Utbildningar`}
-                            </DigiButton>
-                            {activeEducationId === occupation.concept_taxonomy_id && <Educations props={educations} />}
-                        </li>
+                        {activeEducationId === occupation.concept_taxonomy_id && (
+                            <li><Educations props={educations} /></li>
+                        )}
                     </ul>
                 </DigiExpandableAccordion>
             ))}
