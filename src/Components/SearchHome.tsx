@@ -36,7 +36,7 @@ export const SearchHome = () => {
         if (relatedOccupations.length === 0) {
             setShowError(true);
         }
-    }, 2000);
+    }, 3000);
 };
 
   const handleClickToGetCompetencies = (occupationId: string) => {
