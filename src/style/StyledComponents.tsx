@@ -28,12 +28,25 @@ export const CustomDigiButton = styled(DigiButton)`
 export const CustomDigiFormInputSearch = styled(DigiFormInputSearch)`
  
  // Primary
-  
+ --digi--focus-shadow:  0 0 0.225rem darkorange !important;
+ .digi-form-input__input.sc-digi-form-input{
+    border-color: transparent !important
+ }
+ button {
+    background-color: darkorange !important;
+    border: darkorange !important;
+
+    &:hover {
+        background-color: orange !important;
+        border: orange !important;
+    }
+ }
   
  // secondary
-
  
+
 `;
+
 export const CustomDigiList = styled(DigiList)`
  
  // Primary
@@ -44,14 +57,13 @@ export const CustomDigiList = styled(DigiList)`
  
 `;
 export const CustomOccupationMenu = styled(OccupationMenu)`
- 
- // Primary
-  
-  
- // secondary
 
- 
+
+  
+  
+
 `;
+
 
 export const CustomDigiExpandableAccordion = styled(DigiExpandableAccordion)`
  
