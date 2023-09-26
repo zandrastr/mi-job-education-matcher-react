@@ -73,7 +73,7 @@ export const SearchHome = () => {
         relatedOccupations.length > 0 && (
           <>
             <div className="searchResultWrapper">
-              <h2>Relevanta yrken:</h2>
+              <h1>Relevanta yrken:</h1>
               <OccupationMenu
                 occupations={relatedOccupations}
                 competencies={competencies}

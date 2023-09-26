@@ -15,7 +15,7 @@ export const Competencies = ({ props }: competenciesProps) => {
     <>
       <div className="competencies">
         <CustomDigiTypography afVariation={TypographyVariation.LARGE}>
-          <h1>Efterfrågade kompetenser</h1>
+          <h2>Efterfrågade kompetenser</h2>
         </CustomDigiTypography>
 
         <CustomDigiTypography afVariation={TypographyVariation.SMALL}>
