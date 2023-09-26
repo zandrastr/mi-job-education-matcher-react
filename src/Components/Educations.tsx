@@ -27,7 +27,7 @@ export const Educations = ({ props }: educationsProps) => {
     <>
       <div className="educations">
         <CustomDigiTypography afVariation={TypographyVariation.LARGE}>
-          <h1>Utbildningar</h1>
+          <h2>Utbildningar</h2>
         </CustomDigiTypography>
 
         <CustomDigiTypography afVariation={TypographyVariation.SMALL}>

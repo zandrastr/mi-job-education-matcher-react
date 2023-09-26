@@ -67,9 +67,10 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
                afHeading={occupation.occupation_label}
                af-expanded={expandedAccordionId === occupation.id}
                onAfOnClick={() => handleAccordionClick(occupation)}
+               className="expandableDiv"
            >
            
-                    <ul>
+                    <ul className="expandableContent">
                         {activeSsyk === occupation.occupation_group.ssyk && (
                             <li>
                                 <WorkDescription ssyk={occupation.occupation_group.ssyk} />

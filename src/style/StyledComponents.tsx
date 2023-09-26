@@ -66,16 +66,20 @@ export const CustomOccupationMenu = styled(OccupationMenu)`
 
 
 export const CustomDigiExpandableAccordion = styled(DigiExpandableAccordion)`
- 
- // Primary
-  
-  
- // secondary
 
- 
+  // Primary styles
+  .expandableContent{
+   list-style: none;
+
+  }
+
+  
 `;
 export const CustomDigiTypography = styled(DigiTypography)`
  
+ h2{
+   text-align: center;
+ }
  // Primary
   
   

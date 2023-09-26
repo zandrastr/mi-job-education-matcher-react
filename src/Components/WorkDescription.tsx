@@ -30,7 +30,7 @@ export const WorkDescription = ({ ssyk }: WorkDescriptionProps) => {
                             if (valueIndex !== -1) {
                                 return (
                                     <div key={index}>
-                                        <h3>Yrkesbeskrivning</h3>
+                                        <h2>Yrkesbeskrivning</h2>
                                         <p>
                                             {variable.valueTexts[valueIndex]}
                                         </p>

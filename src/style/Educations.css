@@ -1,34 +1,31 @@
 .educations {
-    background-color: rgb(245, 245, 245);
-    padding: 20px;
-    margin: 20px;
-    border-left: 10px solid rgb(208,122,42);
-    text-align: left;
+  background-color: rgb(245, 245, 245);
+  text-align: left;
 }
 
 .educationWrapper {
-    background-color: rgb(253, 253, 253);
-    padding: 25px;
-    margin-bottom: 20px;
-    font-family: sans-serif;
+  background-color: rgb(253, 253, 253);
+  padding: 25px;
+  margin-bottom: 20px;
+  font-family: sans-serif;
 }
 
 .educations p {
-    margin-bottom: 5px;
-} 
+  margin-bottom: 5px;
+}
 
 .educations button {
-    background-color: rgb(253, 253, 253);
-    border: 1px solid rgb(58, 58, 58);
-    color: rgb(208,122,42);
+  background-color: rgb(253, 253, 253);
+  border: 1px solid rgb(58, 58, 58);
+  color: rgb(208, 122, 42);
 }
 
 .educations button:hover {
-    background-color: rgb(87, 87, 87);
-    border: 1px solid rgb(58, 58, 58);
-    color: rgb(253, 253, 253);
+  background-color: rgb(87, 87, 87);
+  border: 1px solid rgb(58, 58, 58);
+  color: rgb(253, 253, 253);
 }
 
 .readMore {
-    margin: 20px 0 20px 0;
+  margin: 20px 0 20px 0;
 }
