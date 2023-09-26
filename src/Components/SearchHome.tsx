@@ -1,13 +1,12 @@
 import { useState } from "react";
 import "../style/TestForm.css";
 
-import { DigiFormInputSearch, DigiList } from "@digi/arbetsformedlingen-react";
 import { FormInputSearchVariation, FormInputType, ListType } from "@digi/arbetsformedlingen";
 
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { handleCompetencyClick, handleSearchSubmit } from "../functions/searchHandlers";
-import { OccupationMenu } from "./OccupationMenu";
+import { CustomDigiFormInputSearch, CustomDigiList, CustomOccupationMenu } from "../style/StyledComponents";
 
 
 
@@ -46,7 +45,7 @@ export const SearchHome = () => {
 
   return (
       <div>
-          <DigiFormInputSearch
+          <CustomDigiFormInputSearch
               afLabel="Hitta relaterade yrken"
               afVariation={FormInputSearchVariation.LARGE}
               afType={FormInputType.SEARCH}	
@@ -61,19 +60,19 @@ export const SearchHome = () => {
           {hasSearched && showError && relatedOccupations.length === 0 ? (
               <div className="error-message">
                 <h3>Inga yrken hittades vid din sökning. Tips för att förbättra din sökning</h3>
-                            <DigiList
+                            <CustomDigiList
             afListType={ListType.BULLET}
           >
             
           <li>Kontrollera din stavning</li>
           <li>Byt ut eller ta bort ett sökord</li>
-              </DigiList>
+              </CustomDigiList>
               </div>
           ) : (
             relatedOccupations.length > 0 && (
                 <>
                     <h2>Relevanta yrken:</h2>
-                    <OccupationMenu 
+                    <CustomOccupationMenu 
                         occupations={relatedOccupations} 
                         competencies={competencies} 
                         selectedOccupationId={selectedOccupationId} 
