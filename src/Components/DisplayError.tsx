@@ -1,5 +1,6 @@
 import { ErrorPageStatusCodes } from "@digi/arbetsformedlingen";
-import { DigiLinkInternal, DigiNotificationErrorPage } from "@digi/arbetsformedlingen-react";
+import { DigiNotificationErrorPage } from "@digi/arbetsformedlingen-react";
+import { CustomDigiLinkInternal } from "../style/StyledComponents";
 
 export const DisplayError = () => {
   return (
@@ -10,12 +11,12 @@ export const DisplayError = () => {
       </p>
       <ul slot="links">
         <li>
-          <DigiLinkInternal
+          <CustomDigiLinkInternal
             afHref="/"
             afVariation="small"
           >
             Till startsidan
-          </DigiLinkInternal>
+          </CustomDigiLinkInternal>
         </li>
       </ul>
     </DigiNotificationErrorPage>

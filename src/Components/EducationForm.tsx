@@ -1,5 +1,6 @@
 import { FormCheckboxVariation } from "@digi/arbetsformedlingen";
-import { DigiFormCheckbox, DigiFormFilter } from "@digi/arbetsformedlingen-react";
+import { DigiFormCheckbox } from "@digi/arbetsformedlingen-react";
+import { CustomDigiFormFilter } from "../style/StyledComponents";
 
 
 export const EducationForm = () => {
@@ -30,23 +31,23 @@ export const EducationForm = () => {
   return (
     <div className="filters-row" style={{ display: 'flex', justifyContent: 'space-between', gap: '20px' }}>
         <>
-        <DigiFormFilter
+        <CustomDigiFormFilter
                     afFilterButtonText="Utbildningstyp"
                     afSubmitButtonText="Filtrera">
                     {educationsType.map((type, index) => (
                         <DigiFormCheckbox key={index} afLabel={type} value={type} />
                     ))}
-        </DigiFormFilter>
+        </CustomDigiFormFilter>
 
-        <DigiFormFilter
+        <CustomDigiFormFilter
                     afFilterButtonText="Utbildningsform"
                     afSubmitButtonText="Filtrera">
                     {educationsForm.map((form, index) => (
                         <DigiFormCheckbox key={index} afLabel={form} value={form} />
                     ))}
-        </DigiFormFilter>
+        </CustomDigiFormFilter>
 
-        <DigiFormFilter
+        <CustomDigiFormFilter
             afFilterButtonText="Ort"
             afSubmitButtonText="Filtrera">
             <DigiFormCheckbox afLabel="Val 1"/>
@@ -54,7 +55,7 @@ export const EducationForm = () => {
             afLabel="Endast utbildningar på distans"
             afVariation={FormCheckboxVariation.PRIMARY}
         />
-        </DigiFormFilter>
+        </CustomDigiFormFilter>
         
        
         </>

@@ -1,11 +1,11 @@
 import { IOccupation } from "../models/RelatedOccupationsInterface";
-import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
 import { Competencies } from "./Competencies";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { WorkDescription } from './WorkDescription';
 import { Educations } from "./Educations";
 import { useState } from "react";
 import { EducationFunction } from "./EducationFunction";
+import { CustomDigiExpandableAccordion } from "../style/StyledComponents";
 
 interface Props {
     occupations: IOccupation[];
@@ -62,7 +62,7 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
     return (
         <div>
             {occupations.map((occupation) => (
-               <DigiExpandableAccordion
+               <CustomDigiExpandableAccordion
                key={occupation.id}
                afHeading={occupation.occupation_label}
                af-expanded={expandedAccordionId === occupation.id}
@@ -84,7 +84,7 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
                             <li><Educations props={educations} /></li>
                         )}
                     </ul>
-                </DigiExpandableAccordion>
+                </CustomDigiExpandableAccordion>
             ))}
         </div>
     );
