@@ -7,7 +7,8 @@ import { FormInputSearchVariation, FormInputType, ListType } from "@digi/arbetsf
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { handleCompetencyClick, handleSearchSubmit } from "../functions/searchHandlers";
-import { CustomDigiFormInputSearch, CustomDigiList, CustomOccupationMenu } from "../style/StyledComponents";
+import { CustomDigiFormInputSearch, CustomDigiList } from "../style/StyledComponents";
+import { OccupationMenu } from "./OccupationMenu";
 
 export const SearchHome = () => {
   const [titelInput, setTitelInput] = useState<string>("");
