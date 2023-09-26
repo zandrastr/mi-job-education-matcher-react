@@ -2,7 +2,7 @@ import { DigiTypography } from "@digi/arbetsformedlingen-react";
 import { TypographyVariation } from "@digi/arbetsformedlingen";
 import "../style/Educations.css";
 import { IEducation } from "../models/EducationsInterface";
-import { useState } from "react";
+//import { useState } from "react";
 
 interface educationsProps {
   props: IEducation[];
@@ -10,6 +10,7 @@ interface educationsProps {
 
 export const Educations = ({ props }: educationsProps) => {
   const educations = props;
+  /*
   const [readMoreOpen, setReadMoreOpen] = useState(false);
   const [chosenEducation, setChosenEducation] = useState<string | null>(null);
 
@@ -21,7 +22,7 @@ export const Educations = ({ props }: educationsProps) => {
     setReadMoreOpen(!readMoreOpen);
     setChosenEducation(id);
   };
-
+*/
   return (
     <>
       <div className="educations">
@@ -49,8 +50,9 @@ export const Educations = ({ props }: educationsProps) => {
                 {oneEducation.eventSummary.distance ? "Distans" : "Platsbunden"}
               </p>
 
-              <button onClick={() => toggleReadMore(oneEducation.id)}> {readMoreOpen && chosenEducation === oneEducation.id ? "Minimera" : "Läs mer"}</button>
-              {readMoreOpen && chosenEducation === oneEducation.id && <p className="readMore">{oneEducation.education_description}</p>}
+             {/* <DigiButton afSize={ButtonSize.SMALL} afVariation={ButtonVariation.SECONDARY} onClick={() => toggleReadMore(oneEducation.id)}> {readMoreOpen && chosenEducation === oneEducation.id ? "Minimera" : "Läs mer"}</DigiButton>
+              {readMoreOpen && chosenEducation === oneEducation.id && <p className="readMore">{oneEducation.education_description}</p>}*/}
+              <p className="readMore">{oneEducation.education_description}</p>
             </div>
           ))}
         </DigiTypography>

@@ -1,11 +1,12 @@
 import { IOccupation } from "../models/RelatedOccupationsInterface";
-import { DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
+import { DigiButton, DigiExpandableAccordion } from "@digi/arbetsformedlingen-react";
 import { Competencies } from "./Competencies";
 import { ICompetency } from "../models/CompentenciesInterface";
 import { WorkDescription } from './WorkDescription';
 import { Educations } from "./Educations";
 import { useState } from "react";
 import { EducationFunction } from "./EducationFunction";
+import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
 
 interface Props {
     occupations: IOccupation[];
@@ -69,12 +70,12 @@ export const OccupationMenu = ({ occupations, competencies, selectedOccupationId
                             
                         
                         <li>
-                            <button onClick={() => {
+                            <DigiButton  afSize={ButtonSize.MEDIUM} afVariation={ButtonVariation.SECONDARY} onClick={() => {
                                 handleClickToGetEducations(occupation.concept_taxonomy_id);
                                 toggleAccordion(occupation.id);
                             }}>
                                 {`Utbildningar`}
-                            </button>
+                            </DigiButton>
                             {activeEducationId === occupation.concept_taxonomy_id && <Educations props={educations} />}
                         </li>
                     </ul>
