@@ -1,20 +1,18 @@
-import { useState } from "react";
-import "../style/TestForm.css";
-import "../style/Search.css";
+import { useState, useEffect } from 'react';
+import '../style/TestForm.css';
+import '../style/Search.css';
+import { FormInputSearchVariation, FormInputType, ListType } from '@digi/arbetsformedlingen';
 
-import { FormInputSearchVariation, FormInputType, ListType } from "@digi/arbetsformedlingen";
-
-import { IOccupation } from "../models/RelatedOccupationsInterface";
-import { ICompetency } from "../models/CompentenciesInterface";
-import { handleCompetencyClick, handleSearchSubmit } from "../functions/searchHandlers";
-import { CustomDigiFormInputSearch, CustomDigiList } from "../style/StyledComponents";
-import { OccupationMenu } from "./OccupationMenu";
+import { useSearch } from '../functions/useSearch';
+import { useCompetency } from '../functions/useCompetency';
+import { CustomDigiFormInputSearch, CustomDigiList } from '../style/StyledComponents';
+import { OccupationMenu } from './OccupationMenu';
 
 export const SearchHome = () => {
+  const { relatedOccupations, search } = useSearch();
+  const { competencies, selectedOccupationId, loadCompetencies } = useCompetency();
+
   const [titelInput, setTitelInput] = useState<string>("");
-  const [relatedOccupations, setRelatedOccupations] = useState<IOccupation[]>([]);
-  const [competencies, setCompetencies] = useState<ICompetency[]>([]);
-  const [selectedOccupationId, setSelectedOccupationId] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
   const [showError, setShowError] = useState(false);
 
@@ -22,31 +20,21 @@ export const SearchHome = () => {
     if (name === "titelInput") {
       setTitelInput(value);
       // Clearing the previous data before a new search
-      setRelatedOccupations([]);
-      setCompetencies([]);
-      setSelectedOccupationId(null);
-      handleSubmit(value);
+      search(value);
+      setHasSearched(true);
     }
   };
 
-  const handleSubmit = (inputValue: string) => {
-    handleSearchSubmit(inputValue, setRelatedOccupations);
-    setHasSearched(true);
-    setTimeout(() => {
-
-        if (relatedOccupations.length === 0) {
-            setShowError(true);
-        }
-    }, 3000);
-};
-
-
-  const handleClickToGetCompetencies = (occupationId: string) => {
-    handleCompetencyClick(occupationId, selectedOccupationId, setSelectedOccupationId, setCompetencies);
-  };
+  useEffect(() => {
+    if (hasSearched && relatedOccupations.length === 0) {
+      const timer = setTimeout(() => {
+        setShowError(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasSearched, relatedOccupations]);
 
   return (
-
     <div>
       <div className="searchWrapper">
         <div className="searchInput">
@@ -78,13 +66,12 @@ export const SearchHome = () => {
                 occupations={relatedOccupations}
                 competencies={competencies}
                 selectedOccupationId={selectedOccupationId}
-                onCompetencyClick={handleClickToGetCompetencies}
+                onCompetencyClick={loadCompetencies}
               />
             </div>
           </>
         )
       )}
-
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { ICompetency } from "../models/CompentenciesInterface";
+/*import { ICompetency } from "../models/CompentenciesInterface";
 import { IOccupation } from "../models/RelatedOccupationsInterface";
 import { getCompetenciesFromApi, getRelatedOccupationsFromApi } from "../services/ApiResponseService";
 import { generateSubstrings } from './generateSubstrings'; 
@@ -40,3 +40,4 @@ export const handleCompetencyClick = async (
     console.log(data, occupationId);
   }
 };
+*/
