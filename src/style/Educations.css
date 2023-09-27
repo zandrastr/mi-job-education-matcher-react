@@ -10,6 +10,11 @@
   font-family: sans-serif;
 }
 
+.educations h2 {
+  background-color: rgb(253, 253, 253);
+  margin-bottom: 0;
+}
+
 .educations p {
   margin-bottom: 5px;
 }
