@@ -9,9 +9,11 @@ export const useSearch = () => {
 
   const search = async (inputValue: string) => {
     const substrings: string[] = generateSubstrings(inputValue);
-    const withEr = substrings.map((substring) => substring + "re");
-    const combinedArray = substrings.concat(withEr);
-    const modifiedInput = combinedArray.join(" ");
+    const withRe = substrings.map((substring) => substring + "re");
+    const withEr = substrings.map((substring) => substring + "er");
+    const combinedArray = substrings.concat(withRe);
+    const combinedArrayBoth = combinedArray.concat(withEr);
+    const modifiedInput = combinedArrayBoth.join(" ");
 
     const data = await getRelatedOccupationsFromApi(modifiedInput);
     console.log(modifiedInput);
