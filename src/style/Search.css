@@ -65,3 +65,7 @@
   .sc-digi-expandable-accordion {
   border: 1px solid darkorange !important;
 }
+
+.error-message {
+  margin-top: 350px;
+}
