@@ -8,6 +8,7 @@
   padding: 25px;
   margin-bottom: 20px;
   font-family: sans-serif;
+  word-break: break-word;
 }
 
 .educations h2 {
