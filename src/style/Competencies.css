@@ -20,3 +20,12 @@
 .competencies span {
   color: rgb(0, 0, 0);
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .competencies ul {
+    columns: 1;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+  }
+}

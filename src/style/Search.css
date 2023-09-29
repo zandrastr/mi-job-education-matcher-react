@@ -58,11 +58,23 @@
   margin-bottom: 150px;
   z-index: 50;
   text-align: -webkit-center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.expandableContent {
+  padding: 5px;
+}
+
+.digi-expandable-accordion {
+  width: 90vw;
 }
 
 .digi-expandable-accordion__header
-  .sc-digi-expandable-accordiondigi-expandable-accordion__header
-  .sc-digi-expandable-accordion {
+.sc-digi-expandable-accordiondigi-expandable-accordion__header
+.sc-digi-expandable-accordion {
   border: 1px solid darkorange !important;
 }
 
