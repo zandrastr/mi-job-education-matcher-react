@@ -1,153 +1,157 @@
-    import React, { useState, useRef, useEffect } from "react";
-    import "../style/TestForm.css"; // Import your custom CSS file for styling
+import React, { useState, useRef, useEffect } from "react";
+import "../style/TestForm.css"; // Import your custom CSS file for styling
 import { StyledComponentsDesign } from "./StyledComponentsDesign";
 
-    export const TestForm = () => {
-    const [input1, setInput1] = useState("");
-    const [input2, setInput2] = useState("");
-    const [textArray, setTextArray] = useState<string[]>([]);
-    const [submittedInput1, setSubmittedInput1] = useState<string | null>(null); // Track submitted input1
-    const [isExpanded, setIsExpanded] = useState(false); // Track expansion state
-    const expandTextRef = useRef<HTMLDivElement>(null); // Ref for the expanded text div
-    const [utbildningar, setUtbildningar] = useState<string[]>([]);
+export const TestForm = () => {
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [textArray, setTextArray] = useState<string[]>([]);
+  const [submittedInput1, setSubmittedInput1] = useState<string | null>(null); // Track submitted input1
+  const [isExpanded, setIsExpanded] = useState(false); // Track expansion state
+  const expandTextRef = useRef<HTMLDivElement>(null); // Ref for the expanded text div
+  const [utbildningar, setUtbildningar] = useState<string[]>([]);
 
-    useEffect(() => {
-        // Add event listener to handle clicks outside the expanded text
-        const handleClickOutside = (e: MouseEvent) => {
-        if (
-            expandTextRef.current &&
-            !expandTextRef.current.contains(e.target as Node) &&
-            e.target !== document.activeElement
-        ) {
-            setIsExpanded(false);
-        }
-        };
-
-        // Attach the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-
-        // Clean up the event listener when component unmounts
-        return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    const handleInput1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput1(e.target.value);
+  useEffect(() => {
+    // Add event listener to handle clicks outside the expanded text
+    const handleClickOutside = (e: MouseEvent) => {
+      if (expandTextRef.current && !expandTextRef.current.contains(e.target as Node) && e.target !== document.activeElement) {
+        setIsExpanded(false);
+      }
     };
 
-    const handleInput2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput2(e.target.value);
+    // Attach the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up the event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, []);
 
-    const handleAddText = () => {
-        if (input2.trim() !== "") {
-        setTextArray([...textArray, input2]);
-        setInput2("");
-        }
-    };
+  const handleInput1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput1(e.target.value);
+  };
 
-    const handleShowUtbildningar = () => {
-        // Simulate fetching utbildningar data
-        const mockUtbildningar = [
-          "Utbildning 1",
-          "Utbildning 2",
-          "Utbildning 3",
-        ];
-        setUtbildningar(mockUtbildningar);
-      };
+  const handleInput2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput2(e.target.value);
+  };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (input1.trim() !== "") {
-        console.log("Input Field 1 Value:", input1);
-        setSubmittedInput1(input1); // Set submitted input1
-        }
-        console.log("Submitted Text Array:", textArray);
-    };
+  const handleAddText = () => {
+    if (input2.trim() !== "") {
+      setTextArray([...textArray, input2]);
+      setInput2("");
+    }
+  };
 
-    const handleExpandTextClick = () => {
-        setIsExpanded(!isExpanded);
-    };
+  const handleShowUtbildningar = () => {
+    // Simulate fetching utbildningar data
+    const mockUtbildningar = ["Utbildning 1", "Utbildning 2", "Utbildning 3"];
+    setUtbildningar(mockUtbildningar);
+  };
 
-    // Prevent propagation of click events inside the form
-    const handleFormClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input1.trim() !== "") {
+      setSubmittedInput1(input1); // Set submitted input1
+    }
+  };
 
-    return (
+  const handleExpandTextClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  // Prevent propagation of click events inside the form
+  const handleFormClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  return (
+    <div>
+      <p>//////////////////CustomDigiButton//////////////////////////</p>
+      <StyledComponentsDesign />
+      <p>/////////////////////////////////////////////////////</p>
+      <form onSubmit={handleSubmit}>
         <div>
-            <p>//////////////////CustomDigiButton//////////////////////////</p>
-            <StyledComponentsDesign />
-            <p>/////////////////////////////////////////////////////</p>
-        <form onSubmit={handleSubmit}>
-            <div>
-            <label htmlFor="input1">Jobbtitel:</label>
-            <input
-                type="text"
-                id="input1"
-                value={input1}
-                onChange={handleInput1Change}
-            />
-            </div>
-            <div>
-            <label htmlFor="input2">Sökord:</label>
-            <input
-                type="text"
-                id="input2"
-                value={input2}
-                onChange={handleInput2Change}
-            />
-            <button type="button" onClick={handleAddText}>
-                Lägg till sökord
-            </button>
-            </div>
-            <div style={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
-            {textArray.map((text, index) => (
-                <div key={index} style={{ marginRight: "10px" }}>
-                {text}
-                </div>
-            ))}
-            </div>
-            <div>
-            <button type="submit">Sök</button>
-            </div>
-        </form>
-        <p>Yrken:</p>
-        {submittedInput1 !== null && (
+          <label htmlFor="input1">Jobbtitel:</label>
+          <input
+            type="text"
+            id="input1"
+            value={input1}
+            onChange={handleInput1Change}
+          />
+        </div>
+        <div>
+          <label htmlFor="input2">Sökord:</label>
+          <input
+            type="text"
+            id="input2"
+            value={input2}
+            onChange={handleInput2Change}
+          />
+          <button
+            type="button"
+            onClick={handleAddText}
+          >
+            Lägg till sökord
+          </button>
+        </div>
+        <div style={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
+          {textArray.map((text, index) => (
             <div
-            className={`input1-value ${isExpanded ? "expanded" : ""}`}
-            onClick={handleExpandTextClick}
+              key={index}
+              style={{ marginRight: "10px" }}
             >
-            Jobb (klicka för mer info): {submittedInput1}
-            {isExpanded && (
-                <div className="expand-text" ref={expandTextRef} onClick={handleFormClick}>
-                    <p>Arbetsuppgifter: <br></br>Lön:</p>
-                <div>
-                    <h3>Utbildningar</h3>
-                    <label htmlFor="selectInput">Studietyp</label>
-                    <select id="selectInput">
-                    <option value="option1">Högskola</option>
-                    <option value="option2">Universitet</option>
-                    <option value="option3">Folkhögskola</option>
-                    </select>
-                    <label htmlFor="textInput">Studieort:</label>
-                    <input type="text" id="textInput" />
-                    <p>Endast distans []</p>
-                    <button onClick={handleShowUtbildningar}>Show Utbildningar</button>
-                    {utbildningar.length > 0 && (
+              {text}
+            </div>
+          ))}
+        </div>
+        <div>
+          <button type="submit">Sök</button>
+        </div>
+      </form>
+      <p>Yrken:</p>
+      {submittedInput1 !== null && (
+        <div
+          className={`input1-value ${isExpanded ? "expanded" : ""}`}
+          onClick={handleExpandTextClick}
+        >
+          Jobb (klicka för mer info): {submittedInput1}
+          {isExpanded && (
+            <div
+              className="expand-text"
+              ref={expandTextRef}
+              onClick={handleFormClick}
+            >
+              <p>
+                Arbetsuppgifter: <br></br>Lön:
+              </p>
+              <div>
+                <h3>Utbildningar</h3>
+                <label htmlFor="selectInput">Studietyp</label>
+                <select id="selectInput">
+                  <option value="option1">Högskola</option>
+                  <option value="option2">Universitet</option>
+                  <option value="option3">Folkhögskola</option>
+                </select>
+                <label htmlFor="textInput">Studieort:</label>
+                <input
+                  type="text"
+                  id="textInput"
+                />
+                <p>Endast distans []</p>
+                <button onClick={handleShowUtbildningar}>Show Utbildningar</button>
+                {utbildningar.length > 0 && (
                   <ul>
                     {utbildningar.map((utbildning, index) => (
                       <li key={index}>{utbildning}</li>
                     ))}
                   </ul>
                 )}
-                </div>
-                
-                </div>
-            )}
+              </div>
             </div>
-        )}
+          )}
         </div>
-    );
-    };
+      )}
+    </div>
+  );
+};
