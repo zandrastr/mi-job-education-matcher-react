@@ -50,13 +50,11 @@ export const getEducationsFromApi = async (occupationId: string): Promise<IEduca
 
 export const getDataFromScb = async (): Promise<ApiResponse | undefined> => {
   const url = "https://api.scb.se/OV0104/v1/doris/sv/ssd/START/AM/AM0208/AM0208Z/SSYKBeskrivning";
- 
+
 
   try {
     const response = await axios.get<ApiResponse>(url);
-
-      console.log("Raw API response:", response); 
-      console.log("Data part of the response:", response.data); 
+    
       return response.data;
   } catch (error) {
       console.error("Error getting data from API:", error);

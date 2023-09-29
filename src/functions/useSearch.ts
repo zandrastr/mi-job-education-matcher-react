@@ -16,7 +16,6 @@ export const useSearch = () => {
     const modifiedInput = combinedArrayBoth.join(" ");
 
     const data = await getRelatedOccupationsFromApi(modifiedInput);
-    console.log(modifiedInput);
     if (data) {
       setRelatedOccupations(data);
     }
