@@ -1,4 +1,3 @@
-// useSearch.ts
 import { useState } from 'react';
 import { IOccupation } from '../models/RelatedOccupationsInterface';
 import { getRelatedOccupationsFromApi } from '../services/ApiResponseService';

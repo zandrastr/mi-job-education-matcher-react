@@ -1,8 +1,8 @@
 .competencies {
-  background-color: rgb(255 255 255) !important;
+  background-color: rgb(253 253 253) !important;
   padding: 20px;
   margin: 25px 0 20px 0;
-  border-left: 10px solid rgb(208, 122, 42);
+  border-left: 10px solid darkorange;
 }
 
 .competencies ul {

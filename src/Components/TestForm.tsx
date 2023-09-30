@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../style/TestForm.css"; // Import your custom CSS file for styling
+import "../style/TestForm.css"; 
 import { StyledComponentsDesign } from "./StyledComponentsDesign";
 
 export const TestForm = () => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [textArray, setTextArray] = useState<string[]>([]);
-  const [submittedInput1, setSubmittedInput1] = useState<string | null>(null); // Track submitted input1
-  const [isExpanded, setIsExpanded] = useState(false); // Track expansion state
-  const expandTextRef = useRef<HTMLDivElement>(null); // Ref for the expanded text div
+  const [submittedInput1, setSubmittedInput1] = useState<string | null>(null); 
+  const [isExpanded, setIsExpanded] = useState(false); 
+  const expandTextRef = useRef<HTMLDivElement>(null); 
   const [utbildningar, setUtbildningar] = useState<string[]>([]);
 
   useEffect(() => {
-    // Add event listener to handle clicks outside the expanded text
+    
     const handleClickOutside = (e: MouseEvent) => {
       if (expandTextRef.current && !expandTextRef.current.contains(e.target as Node) && e.target !== document.activeElement) {
         setIsExpanded(false);
@@ -44,7 +44,7 @@ export const TestForm = () => {
   };
 
   const handleShowUtbildningar = () => {
-    // Simulate fetching utbildningar data
+   
     const mockUtbildningar = ["Utbildning 1", "Utbildning 2", "Utbildning 3"];
     setUtbildningar(mockUtbildningar);
   };
@@ -52,7 +52,7 @@ export const TestForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input1.trim() !== "") {
-      setSubmittedInput1(input1); // Set submitted input1
+      setSubmittedInput1(input1); 
     }
   };
 
@@ -60,7 +60,6 @@ export const TestForm = () => {
     setIsExpanded(!isExpanded);
   };
 
-  // Prevent propagation of click events inside the form
   const handleFormClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };

@@ -1,4 +1,3 @@
-// useCompetency.ts
 import { useState } from 'react';
 import { ICompetency } from '../models/CompentenciesInterface';
 import { getCompetenciesFromApi } from '../services/ApiResponseService';

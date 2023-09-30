@@ -10,19 +10,7 @@ interface educationsProps {
 
 export const Educations = ({ props }: educationsProps) => {
   const educations = props;
-  /*
-  const [readMoreOpen, setReadMoreOpen] = useState(false);
-  const [chosenEducation, setChosenEducation] = useState<string | null>(null);
-
-  const toggleReadMore = (id: string) => {
-    if (chosenEducation === id) {
-      setChosenEducation(null);
-      setReadMoreOpen(!readMoreOpen);
-    }
-    setReadMoreOpen(!readMoreOpen);
-    setChosenEducation(id);
-  };
-*/
+  
   return (
     <>
       <div className="educations">
