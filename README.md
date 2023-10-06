@@ -14,5 +14,11 @@ To accomplish this, we used multiple APIs to gather diverse data. We were mainly
 - Working with a design system
 - Git
 
-#### 🔧 Tech Stack: 
+## Tech Stack 🔧 
 React | TypeScript | JavaScript | CSS | HTML 
+  
+
+## Developers 👨‍💻 👩‍💻
+
+- [@KennedyB1](https://github.com/KennedyB1)
+- [@zandrastr](https://github.com/zandrastr) 
