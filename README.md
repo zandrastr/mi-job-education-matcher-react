@@ -1,7 +1,6 @@
 # JOB & EDUCATION MATCHER 💼📚🌟
 
-This project was created as part of a school assignment aimed at building a tool to match occupations with educations,   
-while providing insights into the key competencies required. 
+This project was created as part of a school assignment aimed at building a tool to match occupations with educations, while providing insights into the key competencies required. 
 
 To accomplish this, we used multiple APIs to gather diverse data. We were mainly working with React and TypeScript, and also integrated a design system from Arbetsförmedlingen (https://designsystem.arbetsformedlingen.se/).
 
